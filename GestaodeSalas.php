@@ -102,10 +102,21 @@ if (!isset($_SESSION['usuario'])) {
                         <?php foreach ($salas as $sala): ?>
                             <tr>
                                 <td><?php echo $sala['nome']; ?></td>
-                                <td><?php echo $sala['status']; ?></td>
+                                <td>     <?php
+                                    if ($sala['status'] == 1) {
+                                        echo 'Disponível';
+                                    } else {
+                                        echo 'Indisponível';
+                                    }
+                                    ?>
+                                </td>
                                 <td>
-                                    <a href="editar_sala.php?id=<?php echo $sala['id']; ?>" class="btn btn-primary">Editar</a>
-                                    <button class="btn btn-danger" onclick="confirmarExclusao(<?php echo $sala['id']; ?>)">Excluir</button>
+                                    <a href="backend/editar_sala.php?id=<?php echo $sala['id']; ?>"
+                                       class="btn btn-primary">Editar</a>
+
+                                    <button class="btn btn-danger"
+                                            onclick="confirmarExclusao(<?php echo $sala['id']; ?>)">Excluir
+                                    </button>
 
                                 </td>
                             </tr>
@@ -115,7 +126,7 @@ if (!isset($_SESSION['usuario'])) {
                 </div>
             </div>
 
-<!--            <a href="index.html" class="'btn btn-primary">Voltar para Página Inicial</a>-->
+            <!--            <a href="index.html" class="'btn btn-primary">Voltar para Página Inicial</a>-->
         </div>
     </div>
 </div>
@@ -149,25 +160,25 @@ if (!isset($_SESSION['usuario'])) {
 <!-- Scripts personalizados -->
 <script src="js/personalizado.js"></script>
 <script>
-        // Função para confirmar a exclusão da sala
-        function confirmarExclusao(id) {
+    // Função para confirmar a exclusão da sala
+    function confirmarExclusao(id) {
         if (confirm('Tem certeza que deseja excluir esta sala?')) {
-        // Enviar uma solicitação AJAX para o backend para excluir a sala
-        $.ajax({
-        url: 'backend/excluir_sala.php',
-        type: 'POST',
-        data: {id: id},
-        success: function(response) {
-        // Se a exclusão for bem-sucedida, recarregar a página para atualizar a lista de salas
-        location.reload();
-    },
-        error: function(xhr, status, error) {
-        // Se houver um erro, exibir uma mensagem de erro
-        console.error(xhr.responseText);
-        alert('Erro ao excluir a sala. Por favor, tente novamente.');
-    }
-    });
-    }
+            // Enviar uma solicitação AJAX para o backend para excluir a sala
+            $.ajax({
+                url: 'backend/excluir_sala.php',
+                type: 'POST',
+                data: {id: id},
+                success: function (response) {
+                    // Se a exclusão for bem-sucedida, recarregar a página para atualizar a lista de salas
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    // Se houver um erro, exibir uma mensagem de erro
+                    console.error(xhr.responseText);
+                    alert('Erro ao excluir a sala. Por favor, tente novamente.');
+                }
+            });
+        }
     }
 </script>
 <script>

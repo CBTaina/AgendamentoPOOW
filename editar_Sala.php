@@ -37,3 +37,7 @@ include 'backend/editar_sala.php'; // Inclua o arquivo que busca as salas
 
 </body>
 </html>
+<?php
+/* Encerrando conexão com banco de dados */
+mysqli_close($conn);
+?>
